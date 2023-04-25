@@ -1,5 +1,5 @@
 package swe206;
 
-public class match {
+public class Match {
 
 }

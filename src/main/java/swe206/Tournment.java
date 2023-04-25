@@ -1,16 +1,17 @@
 package swe206;
 
+import java.util.ArrayList;
+
 public class Tournment {
   private int tournmentID;
   private String tournmentName;
   private type tournmetType;
   private String Status;
-  private Team[] teams;
+  private ArrayList<Team> teams;
   // private List<Team> teams;
-  private match[] matches;
+  private ArrayList<Match> matches;
 
   private static int counter;
-
   enum type {
     Elimination,
     RoundRobin
@@ -22,8 +23,8 @@ public class Tournment {
     this.tournmentID = counter;
     this.tournmentName = tournmentName;
     this.tournmetType = tournmentType;
-    this.teams = new Team[0];
-    this.matches = new match[0];
+    this.teams = new ArrayList<>();
+    this.matches = new ArrayList<>();
   }
 
   public void addTeam() {}
