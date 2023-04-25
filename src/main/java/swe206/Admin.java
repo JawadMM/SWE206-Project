@@ -8,8 +8,12 @@ public class Admin extends User {
     super(username, password);
   }
 
-  public Tournment createTournment() {
+  public Tournment createTournment(String tournmentName, String date, String location) {
     return null;
   };
+
+  public void deleteTournment(int tournmentID) {
+
+  }
   
 }
