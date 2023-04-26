@@ -11,12 +11,12 @@ public class Team {
 
   private static int counter;
 
-public Team(String teamName, ArrayList<Participant> participants) {
+public Team(String teamName) {
 
   counter +=1;
   this.teamID = counter;
   this.teamName = teamName;
-  this.participants = participants;
+  this.participants = new ArrayList<>();
 }
 
 public int getTeamID() {
@@ -45,5 +45,9 @@ public void setScore(int score) {
   
   public void removeParticipant(Participant participant) {
     participants.remove(participant);
+  }
+
+  public String toString() {
+    return teamName;
   }
 }

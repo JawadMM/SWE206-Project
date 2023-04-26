@@ -1,5 +1,9 @@
 package swe206;
 
+import java.util.Date;
+
+import swe206.Tournament.type;
+
 public class Admin extends User {
 
   private static int adminID;
@@ -8,11 +12,13 @@ public class Admin extends User {
     super(username, password);
   }
 
-  public Tournment createTournment(String tournmentName, String date, String location) {
-    return null;
+  public Tournament createTournament(String tournamentName, type tournamentType, int teamsSize, String date) {
+    
+    Tournament tournament = new Tournament(tournamentName, tournamentType, teamsSize, date);
+    return tournament;
   };
 
-  public void deleteTournment(int tournmentID) {
+  public void deleteTournament(int tournamentID) {
 
   }
   
