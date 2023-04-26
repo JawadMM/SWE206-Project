@@ -113,6 +113,14 @@ public class Tournament {
     team1.addParticipant(p1);
     team1.addParticipant(p2);
     t.addTeam(team1);
+    Participant p11 = new Participant("p1", null);
+    Participant p22 = new Participant("p2", null);
+    Team team2 = new Team("team2");
+    team2.addParticipant(p11);
+    team2.addParticipant(p22);
+    t.addTeam(team2);
+    Match match = new Match(team1, team2);
+    t.addMatch(match);
     System.out.println(t.toString());
   }
 }

@@ -11,29 +11,29 @@ public class Team {
 
   private static int counter;
 
-public Team(String teamName) {
+  public Team(String teamName) {
 
-  counter +=1;
-  this.teamID = counter;
-  this.teamName = teamName;
-  this.participants = new ArrayList<>();
-}
+    counter +=1;
+    this.teamID = counter;
+    this.teamName = teamName;
+    this.participants = new ArrayList<>();
+  }
 
-public int getTeamID() {
-  return teamID;
-}
+  public int getTeamID() {
+    return teamID;
+  }
 
-public String getTeamName() {
-  return teamName;
-}
+  public String getTeamName() {
+    return teamName;
+  }
 
-public int getScore() {
-  return score;
-}
+  public int getScore() {
+    return score;
+  }
 
-public void setScore(int score) {
-  this.score = score;
-}
+  public void setScore(int score) {
+    this.score = score;
+  }
 
   public ArrayList<Participant> getParticipants() {
     return participants;

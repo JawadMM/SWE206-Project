@@ -28,4 +28,8 @@ public class Match {
   public void updateScore(Team team, int score) {
     team.setScore(score);
   }
+  
+  public String toString() {
+    return "Match " + matchID;
+  }
 }
