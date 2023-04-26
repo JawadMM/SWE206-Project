@@ -6,14 +6,44 @@ public class Team {
 
   private int teamID;
   private String teamName;
-  int score;
+  private int score;
   private ArrayList<Participant> participants;
 
-  public void addParticipant() {}
+  private static int counter;
+
+public Team(String teamName, ArrayList<Participant> participants) {
+
+  counter +=1;
+  this.teamID = counter;
+  this.teamName = teamName;
+  this.participants = participants;
+}
+
+public int getTeamID() {
+  return teamID;
+}
+
+public String getTeamName() {
+  return teamName;
+}
+
+public int getScore() {
+  return score;
+}
+
+public void setScore(int score) {
+  this.score = score;
+}
+
+  public ArrayList<Participant> getParticipants() {
+    return participants;
+  }
+
+  public void addParticipant(Participant participant) {
+    participants.add(participant);
+  }
   
-  public void removeParticipant() {}
-  
-  public ArrayList<Participant> geParticipants() {
-    return null;
+  public void removeParticipant(Participant participant) {
+    participants.remove(participant);
   }
 }
