@@ -8,6 +8,7 @@ public class Tournment {
   private type tournmetType;
   private String Status;
   private ArrayList<Team> teams;
+  private int teamsSize;
   // private List<Team> teams;
   private ArrayList<Match> matches;
 
@@ -17,13 +18,14 @@ public class Tournment {
     RoundRobin
   }
 
-  public Tournment(String tournmentName, type tournmentType) {
+  public Tournment(String tournmentName, type tournmentType, int teamsSize) {
 
     counter +=1;
     this.tournmentID = counter;
     this.tournmentName = tournmentName;
     this.tournmetType = tournmentType;
     this.teams = new ArrayList<>();
+    this.teamsSize = teamsSize;
     this.matches = new ArrayList<>();
   }
 
@@ -34,6 +36,4 @@ public class Tournment {
   public void addMatch() {}
 
   public void updateMatchScore() {}
-
-  
 }
