@@ -16,7 +16,7 @@ public class Admin extends User {
     printAdmins();
   }
 
-  public Tournament createTournament(String tournamentName, type tournamentType, int teamsSize, String date) {
+  public Tournament createTournament(String tournamentName, String tournamentType, int teamsSize, String date) {
     
     Tournament tournament = new Tournament(tournamentName, tournamentType, teamsSize, date);
     return tournament;

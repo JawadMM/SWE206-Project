@@ -18,6 +18,8 @@ public class TournamentsPage extends Scene {
   public TournamentsPage() {
     super(getScrollPane(), 1024, 768);
     // TournamentsPage.stage = stage;
+    String css = this.getClass().getResource("style.css").toExternalForm();
+    this.getStylesheets().add(css);
   }
 
   
@@ -28,7 +30,7 @@ public class TournamentsPage extends Scene {
 
     Button addButton = new Button("Add Tournament");
     addButton.setOnAction(event -> {
-      Scene scene1 = new Scene(new Label("ffff"), 1024, 768);
+      Scene scene1 = new AddTournamentPage();
       // stage.setScene(scene1);
       App.getStage().setScene(scene1);
       

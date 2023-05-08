@@ -12,7 +12,7 @@ import java.util.Date;
 public class Tournament implements Serializable {
   private int tournamentID;
   private String tournamentName;
-  private type tournmetType;
+  private String tournmetType;
   private String Status;
   private ArrayList<Team> teams;
   private int teamsSize;
@@ -31,7 +31,7 @@ public class Tournament implements Serializable {
     RoundRobin
   }
 
-  public Tournament(String tournamentName, type tournamentType, int teamsSize, String date) {
+  public Tournament(String tournamentName, String tournamentType, int teamsSize, String date) {
 
     counter +=1;
     this.tournamentID = counter;
@@ -55,7 +55,7 @@ public class Tournament implements Serializable {
     return tournamentName;
   }
   
-  public type getTournamentType() {
+  public String getTournamentType() {
     return tournmetType;
   }
 
