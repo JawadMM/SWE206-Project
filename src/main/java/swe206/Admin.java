@@ -1,15 +1,19 @@
 package swe206;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import swe206.Tournament.type;
 
 public class Admin extends User {
 
+  private static ArrayList<Admin> admins = new ArrayList<>();
   private static int adminID;
 
   public Admin(String username, String password) {
     super(username, password);
+    admins.add(this);
+    printAdmins();
   }
 
   public Tournament createTournament(String tournamentName, type tournamentType, int teamsSize, String date) {
@@ -20,6 +24,12 @@ public class Admin extends User {
 
   public void deleteTournament(int tournamentID) {
 
+  }
+
+  public void printAdmins() {
+    for (int i = 0; i < admins.size(); i++) {
+      System.out.println(admins.get(i));
+    }
   }
   
 }

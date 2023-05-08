@@ -1,9 +1,15 @@
 package swe206;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Tournament {
+public class Tournament implements Serializable {
   private int tournamentID;
   private String tournamentName;
   private type tournmetType;
@@ -38,6 +44,7 @@ public class Tournament {
     this.Status = "Ongoing";
 
     ongoingTournaments.add(this);
+    saveTournaments();
   }
 
   private int getTournamentID() {
@@ -104,23 +111,42 @@ public class Tournament {
     return "ID: " + tournamentID + ", Tournament Name: " + tournamentName + ", Tournament Type: " + tournmetType + ", Status: " + Status 
             + ", Team Size: " + teamsSize + "\nTeams: " + teams + "\nMatches: " + matches + "\nDate: " + date;
   }
+
+  public static void saveTournaments() {
+    try {
+        ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("tournaments.ser"));
+        outputStream.writeObject(ongoingTournaments);
+        outputStream.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+  }
+
+  public static void loadTournaments() {
+    try {
+        ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("tournaments.ser"));
+        ongoingTournaments = (ArrayList<Tournament>) inputStream.readObject();
+        inputStream.close();
+    } catch (IOException | ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+}
+
   public static void main(String[] args) {
     // testing methods
-    Tournament t = new Tournament("t1", Tournament.type.Elimination, 2, "26/4/2023");
-    Participant p1 = new Participant("p1", null);
-    Participant p2 = new Participant("p2", null);
-    Team team1 = new Team("team1");
-    team1.addParticipant(p1);
-    team1.addParticipant(p2);
-    t.addTeam(team1);
-    Participant p11 = new Participant("p1", null);
-    Participant p22 = new Participant("p2", null);
-    Team team2 = new Team("team2");
-    team2.addParticipant(p11);
-    team2.addParticipant(p22);
-    t.addTeam(team2);
-    Match match = new Match(team1, team2);
-    t.addMatch(match);
-    System.out.println(t.toString());
+    // Load the saved tournaments
+    loadTournaments();
+    
+    // Create and add a new tournament
+    // Tournament t = new Tournament("t1", Tournament.type.Elimination, 2, "26/4/2023");
+    // ongoingTournaments.add(t);
+    
+    for(Tournament tt: ongoingTournaments) {
+      System.out.println(tt);
+    }
+    // Save the tournaments
+    // saveTournaments();
   }
+
 }
+
