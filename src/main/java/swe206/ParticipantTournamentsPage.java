@@ -12,10 +12,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class TournamentsPage extends Scene {
+public class ParticipantTournamentsPage extends Scene {
 
   // private static Stage stage;
-  public TournamentsPage() {
+  public ParticipantTournamentsPage() {
     super(getScrollPane(), 1024, 768);
     // TournamentsPage.stage = stage;
     String css = this.getClass().getResource("style.css").toExternalForm();
@@ -28,15 +28,15 @@ public class TournamentsPage extends Scene {
     ScrollPane mainScrollPane = new ScrollPane();
     Label ongoingTournamentsLabel = new Label("Ongoing Tournaments");
 
-    Button addButton = new Button("Add Tournament");
-    addButton.setOnAction(event -> {
-      Scene scene1 = new AddTournamentPage();
-      // stage.setScene(scene1);
-      App.getStage().setScene(scene1);
+    // Button addButton = new Button("Add Tournament");
+    // addButton.setOnAction(event -> {
+    //   Scene scene1 = new AddTournamentPage();
+    //   // stage.setScene(scene1);
+    //   App.getStage().setScene(scene1);
       
-    });
+    // });
 
-    HBox header = new HBox(ongoingTournamentsLabel, addButton);
+    HBox header = new HBox(ongoingTournamentsLabel);
     header.setSpacing(700);
     // HBox.setMargin(header, new Insets(20));
 
