@@ -1,5 +1,7 @@
 package swe206;
 
+import java.io.Serializable;
+
 // public class Match {
 //   private int matchID;
 //   private Team team1;
@@ -84,7 +86,7 @@ package swe206;
 // }
 
 
-class Match {
+public class Match implements Serializable {
       private Team team1;
       private Team team2;
       private Team winner;

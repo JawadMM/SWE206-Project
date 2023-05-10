@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap");
 * {
   -fx-font-family: "Open Sans";
   -fx-font-weight: Medium;
@@ -8,3 +8,6 @@
   -fx-font-size: 16;
 }
 
+#tournament-card {
+  -fx-background-color: #555;
+}

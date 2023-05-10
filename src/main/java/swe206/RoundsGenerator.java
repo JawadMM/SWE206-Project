@@ -21,7 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class KnockoutRoundsGenerator extends Application {
+public class RoundsGenerator extends Application {
 
     private ArrayList<Team> teams;
     private int numTeams;

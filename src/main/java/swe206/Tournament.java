@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class Tournament implements Serializable {
@@ -17,7 +20,8 @@ public class Tournament implements Serializable {
   private ArrayList<Team> teams;
   private int teamsSize;
   private ArrayList<Match> matches;
-  private String date;
+  private String startDate;
+  private String endDate;
 
 
 
@@ -31,7 +35,7 @@ public class Tournament implements Serializable {
     RoundRobin
   }
 
-  public Tournament(String tournamentName, String tournamentType, int teamsSize, String date) {
+  public Tournament(String tournamentName, String tournamentType, int teamsSize, String startDate, String endDate) {
 
     counter +=1;
     this.tournamentID = counter;
@@ -40,7 +44,8 @@ public class Tournament implements Serializable {
     this.teams = new ArrayList<>();
     this.teamsSize = teamsSize;
     this.matches = new ArrayList<>();
-    this.date = date;
+    this.startDate = startDate;
+    this.endDate = endDate;
     this.Status = "Ongoing";
 
     ongoingTournaments.add(this);
@@ -75,8 +80,12 @@ public class Tournament implements Serializable {
     return matches;
   }
 
-  public String getDate() {
-    return date;
+  public String getStartDate() {
+    return startDate;
+  }
+  
+  public String getEndDate() {
+    return endDate;
   }
 
   public void addTeam(Team team) {
@@ -109,7 +118,7 @@ public class Tournament implements Serializable {
 
     public String toString() {
     return "ID: " + tournamentID + ", Tournament Name: " + tournamentName + ", Tournament Type: " + tournmetType + ", Status: " + Status 
-            + ", Team Size: " + teamsSize + "\nTeams: " + teams + "\nMatches: " + matches + "\nDate: " + date;
+            + ", Team Size: " + teamsSize + "\nTeams: " + teams + "\nMatches: " + matches + "\nDate: " + startDate + " - " + endDate;
   }
 
   public static void saveTournaments() {
@@ -132,20 +141,69 @@ public class Tournament implements Serializable {
     }
 }
 
+public static long tournamentDuratuion(String date1, String date2) {
+  //Dates should be in this format: "yyyy-MM-dd"
+  LocalDate localDate1 = LocalDate.parse(date1);
+  LocalDate localDate2 = LocalDate.parse(date2);
+  return ChronoUnit.DAYS.between(localDate1, localDate2);
+}
+
+public static int[] distributeMatches(int daysBetween, int numMatches) {
+  int[] matchesPerDay = new int[daysBetween];
+  int matchesPerDayFloor = numMatches / daysBetween;
+  int remainingMatches = numMatches % daysBetween;
+  Arrays.fill(matchesPerDay, matchesPerDayFloor);
+  for (int i = 0; i < remainingMatches; i++) {
+      matchesPerDay[i]++;
+  }
+  return matchesPerDay;
+}
+
+public static int[] distributeEliminationMatches(int numTeams) {
+  int numRounds = (int) Math.ceil(Math.log(numTeams) / Math.log(2));
+  int numMatches = (int) Math.pow(2, numRounds - 1);
+
+  int[] matchesPerDay = new int[numRounds];
+  Arrays.fill(matchesPerDay, 1);
+
+  int remainingMatches = numMatches - numRounds;
+
+  for (int i = 0; i < remainingMatches; i++) {
+      int maxIndex = 0;
+      for (int j = 1; j < numRounds; j++) {
+          if (matchesPerDay[j] > matchesPerDay[maxIndex]) {
+              maxIndex = j;
+          }
+      }
+      matchesPerDay[maxIndex]++;
+  }
+  return matchesPerDay;
+}
+
   public static void main(String[] args) {
     // testing methods
     // Load the saved tournaments
     loadTournaments();
     
     // Create and add a new tournament
-    // Tournament t = new Tournament("t1", Tournament.type.Elimination, 2, "26/4/2023");
-    // ongoingTournaments.add(t);
+    Team team1 = new Team("Team1 Test");
+    Team team2 = new Team("Team2 Test");
+    Match match1 = new Match(team1, team2);
+    
+    
+    ongoingTournaments.get(0).addMatch(match1);
+    ongoingTournaments.get(0).addTeam(team1);
+    ongoingTournaments.get(0).addTeam(team2);
+    
     
     for(Tournament tt: ongoingTournaments) {
-      System.out.println(tt);
+      System.out.println(tt.tournamentDuratuion(tt.startDate, tt.endDate));
+      System.out.println(tt.getMatches());
     }
+
+    // ongoingTournaments.clear();
     // Save the tournaments
-    // saveTournaments();
+    saveTournaments();
   }
 
 }

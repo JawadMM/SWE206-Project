@@ -10,11 +10,13 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class AddTournamentPage extends Scene {
-  
+  // public static Scene scene = new TournamentsPage();
+
   
   public AddTournamentPage() {
     super(getPane(), 1024, 768);
@@ -47,7 +49,7 @@ public class AddTournamentPage extends Scene {
       }
     });
 
-    elimination.setOnAction(new EventHandler<ActionEvent>() {
+    roundRobin.setOnAction(new EventHandler<ActionEvent>() {
 
       @Override
       public void handle(ActionEvent arg0) {
@@ -62,9 +64,13 @@ public class AddTournamentPage extends Scene {
     TextField tournamentTeamSizeTextField = new TextField();
     VBox teamSizeVBox = new VBox(enterTeamSizeLabel, tournamentTeamSizeTextField);
 
-    Label enterDateLabel = new Label("Enter Tournament Date");
-    TextField tournamentDateTextField = new TextField();
-    VBox DateVBox = new VBox(enterDateLabel, tournamentDateTextField);
+    Label enterStartDateLabel = new Label("Enter Tournament Start Date");
+    TextField tournamentStartDateTextField = new TextField();
+    VBox startDateVBox = new VBox(enterStartDateLabel, tournamentStartDateTextField);
+
+    Label enterEndDateLabel = new Label("Enter Tournament Date");
+    TextField tournamentEndDateTextField = new TextField();
+    VBox endDateVBox = new VBox(enterEndDateLabel, tournamentEndDateTextField);
 
     Button addTournamentButton = new Button("Add Tournament");
     addTournamentButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -74,15 +80,20 @@ public class AddTournamentPage extends Scene {
         String tournamentName = tournamentNamTextField.getText();
         String tournamentType = mainMenu.getAccessibleText();
         int teamSize = Integer.parseInt(tournamentTeamSizeTextField.getText());
-        String tournamentDate = tournamentDateTextField.getText();
+        String tournamentStartDate = tournamentStartDateTextField.getText();
+        String tournamentEndDate = tournamentEndDateTextField.getText();
 
-        Tournament tournament = new Tournament(tournamentName, tournamentType, teamSize, tournamentDate);
+        Tournament tournament = new Tournament(tournamentName, tournamentType, teamSize, tournamentStartDate, tournamentEndDate);
+        // App.stage.setScene(scene);
         App.stage.setScene(new TournamentsPage());
       }
       
     });
 
-    VBox mainVBox = new VBox(nameVBox, typeVBox, teamSizeVBox, DateVBox, addTournamentButton);
+    HBox dates = new HBox(startDateVBox, endDateVBox);
+    dates.setSpacing(30);
+
+    VBox mainVBox = new VBox(nameVBox, typeVBox, teamSizeVBox, dates, addTournamentButton);
     mainVBox.setSpacing(30);
     VBox.setMargin(mainVBox , new Insets(100, 100, 100, 100));
     Pane container = new Pane(mainVBox);
