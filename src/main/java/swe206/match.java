@@ -107,11 +107,23 @@ public class Match implements Serializable {
       public Team getWinner() {
           return winner;
       }
+
+      public void setTeam1(Team team1) {
+        this.team1 = team1;
+    }
+
+        public void setTeam2(Team team2) {
+        this.team2 = team2;
+      }
   
       public void setWinner(Team winner) {
           this.winner = winner;
       }
 
       public void updateScore(Team team, int score) {
+      }
+
+      public String toString() {
+        return team1.getTeamName() + team2.getTeamName();
       }
   }

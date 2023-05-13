@@ -6,9 +6,11 @@ import java.util.Arrays;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -25,40 +27,54 @@ public class SpecificTournamentPage extends Scene {
     this.getStylesheets().add(css);
   }
 
-  public static FlowPane getMainPane(Tournament tournament) {
+  public static VBox getMainPane(Tournament tournament) {
     VBox mainVBox = new VBox();
     mainVBox.setPrefSize(1024, 768);
 
     HBox header = new HBox();
 
     Button backButton = new Button("Back");
-backButton.setOnAction(new EventHandler<ActionEvent>() {
+    backButton.setOnAction(new EventHandler<ActionEvent>() {
   
-  @Override
-  public void handle(ActionEvent arg0) {
-    App.getStage().setScene(scene);
-  }
+    @Override
+    public void handle(ActionEvent arg0) {
+      App.getStage().setScene(scene);
+    }
   
-});
+  });
+
+  Button addTeambButton = new Button("Add Team");
+
+  addTeambButton.setOnAction(new EventHandler<ActionEvent>() {
+  
+    @Override
+    public void handle(ActionEvent arg0) {
+      App.getStage().setScene(new AddTeamPage(tournament));
+    }
+  
+  });
+
 
     Label tournamentNameLabel = new Label(tournament.getTournamentName());
-    header.getChildren().addAll(backButton, tournamentNameLabel);
-    header.setSpacing(500);
+    header.getChildren().addAll(backButton, tournamentNameLabel, addTeambButton);
+    header.setSpacing(300);
 
     mainVBox.getChildren().add(header);
     
-    ArrayList<VBox> matches = new ArrayList<>();
-    for(Match match: tournament.getMatches()) {
-      VBox card = matchCard(match);
-      // mainVBox.getChildren().add(card);
-      matches.add(card);
-    }
+    // ArrayList<VBox> matches = new ArrayList<>();
+    // for(Match match: tournament.getMatches()) {
+    //   VBox card = matchCard(match);
+    //   // mainVBox.getChildren().add(card);
+    //   matches.add(card);
+    // }
 
-    GridPane table = eliminationTable(matches, tournament);
+    // GridPane table = eliminationTable(matches, tournament);
 
-    FlowPane mainPane = new FlowPane();
+    VBox mainPane = new VBox();
 
-    mainPane.getChildren().addAll(header, table);
+    VBox table2 = eliminationBox(tournament);
+
+    mainPane.getChildren().addAll(header, table2);
 
     return mainPane;
   }
@@ -83,6 +99,80 @@ backButton.setOnAction(new EventHandler<ActionEvent>() {
 
     return card;
   }
+
+
+  public static VBox eliminationBox(Tournament tournament) {
+    VBox mainBox = new VBox();
+
+    Label lost = new Label("LostTeams:");
+    HBox lostTeams = new HBox();
+    VBox lostBox = new VBox(lost, lostTeams);
+
+    Label current = new Label("Current Match:");
+    HBox currnetMatch = new HBox();
+    VBox currentBox = new VBox(current, currnetMatch);
+
+    Label upcoming = new Label("Upcoming teams:");
+    HBox upcomingTeams = new HBox();
+    VBox upcomingBox = new VBox(upcoming, upcomingTeams);
+
+    ArrayList<Team> teams = tournament.getTeams();
+
+    if (tournament.getTeams().size() > 0) {
+      for (int i = 0; i < teams.size(); i++) {
+        // Team team = teams.get(i);
+        
+        if (i == 0) {
+          Match match = new Match(teams.get(i), teams.get(i + 1));
+          Label firstTeam = new Label(match.getTeam1().getTeamName());
+          Label vs = new Label("VS");
+          Label secondTeam = new Label(match.getTeam2().getTeamName());
+  
+          currnetMatch.getChildren().addAll(firstTeam, vs, secondTeam);
+          currnetMatch.setSpacing(20);
+
+          firstTeam.setOnMouseClicked(e -> {
+            match.setWinner(match.getTeam1());
+            lostTeams.getChildren().add(secondTeam);
+
+            Team newTeam = new Team(((Labeled) upcomingTeams.getChildren().get(0)).getText());
+            upcomingTeams.getChildren().remove(0);
+            match.setTeam2(newTeam);
+            
+            Label newLabel = new Label(newTeam.getTeamName());
+            firstTeam.setLabelFor(newLabel);
+            currnetMatch.getChildren().add(newLabel);
+          });
+
+          
+          secondTeam.setOnMouseClicked(e -> {
+            match.setWinner(match.getTeam2());
+            lostTeams.getChildren().add(firstTeam);
+
+            Team newTeam = new Team(((Labeled) upcomingTeams.getChildren().get(0)).getText());
+            upcomingTeams.getChildren().remove(0);
+            match.setTeam2(newTeam);
+            
+            // currnetMatch.getChildren().add(0, new Label(newTeam.getTeamName()));
+            Label newLabel = new Label(newTeam.getTeamName());
+            secondTeam.setLabelFor(newLabel);
+            currnetMatch.getChildren().add(0, newLabel);
+          });
+
+        }
+
+        else if (i != 1) {
+          Label nextTeam = new Label(teams.get(i).getTeamName());
+          upcomingTeams.getChildren().add(nextTeam);
+        }
+      }
+    }
+
+    mainBox.getChildren().addAll(lostBox, currentBox, upcomingBox);
+
+    return mainBox;
+  }
+
 
   // public static GridPane eliminationTable(ArrayList<VBox> cards, Tournament tournament) {
   //   GridPane gridPane = new GridPane();
@@ -138,4 +228,5 @@ backButton.setOnAction(new EventHandler<ActionEvent>() {
     return gridPane;
   }
 
+  
 }

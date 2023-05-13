@@ -89,15 +89,18 @@ public class Tournament implements Serializable {
   }
 
   public void addTeam(Team team) {
-    teams.add(team);
+    this.teams.add(team);
+    saveTournaments();
   }
   
   public void removeTeam(Team team) {
-    teams.remove(team);
+    this.teams.remove(team);
+    saveTournaments();
   }
 
   public void addMatch(Match match) {
     matches.add(match);
+    saveTournaments();
   }
 
   public void setStatus(String status) {
@@ -186,20 +189,21 @@ public static int[] distributeEliminationMatches(int numTeams) {
     loadTournaments();
     
     // Create and add a new tournament
-    Team team1 = new Team("Team1 Test");
-    Team team2 = new Team("Team2 Test");
-    Match match1 = new Match(team1, team2);
+    // Team team1 = new Team("Team1 Test");
+    // Team team2 = new Team("Team2 Test");
+    // // Match match1 = new Match(team1, team2);
     
+    // ongoingTournaments.get(0).addTeam(team1);
+    // ongoingTournaments.get(0).addTeam(team2);
+    // ongoingTournaments.get(0).addMatch(match1);
+    // ongoingTournaments.get(0).addTeam(team1);
+    // ongoingTournaments.get(0).addTeam(team2);
     
-    ongoingTournaments.get(0).addMatch(match1);
-    ongoingTournaments.get(0).addTeam(team1);
-    ongoingTournaments.get(0).addTeam(team2);
+    System.out.println(ongoingTournaments.get(1).getTournamentType());
     
-    
-    for(Tournament tt: ongoingTournaments) {
-      System.out.println(tt.tournamentDuratuion(tt.startDate, tt.endDate));
-      System.out.println(tt.getMatches());
-    }
+    // for(Tournament tt: ongoingTournaments) {
+    //  System.out.println(tt.toString());
+    // }
 
     // ongoingTournaments.clear();
     // Save the tournaments

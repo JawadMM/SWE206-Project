@@ -79,6 +79,7 @@ public class AddTournamentPage extends Scene {
       public void handle(ActionEvent arg0) {
         String tournamentName = tournamentNamTextField.getText();
         String tournamentType = mainMenu.getAccessibleText();
+        System.out.println(tournamentType);
         int teamSize = Integer.parseInt(tournamentTeamSizeTextField.getText());
         String tournamentStartDate = tournamentStartDateTextField.getText();
         String tournamentEndDate = tournamentEndDateTextField.getText();
