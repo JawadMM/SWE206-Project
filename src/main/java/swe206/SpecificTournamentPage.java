@@ -38,7 +38,7 @@ public class SpecificTournamentPage extends Scene {
   
     @Override
     public void handle(ActionEvent arg0) {
-      App.getStage().setScene(scene);
+      HelloApplication.stage.setScene(scene);
     }
   
   });
@@ -49,7 +49,7 @@ public class SpecificTournamentPage extends Scene {
   
     @Override
     public void handle(ActionEvent arg0) {
-      App.getStage().setScene(new AddTeamPage(tournament));
+      HelloApplication.stage.setScene(new AddTeamPage(tournament));
     }
   
   });

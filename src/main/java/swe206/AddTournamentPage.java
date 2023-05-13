@@ -78,15 +78,15 @@ public class AddTournamentPage extends Scene {
       @Override
       public void handle(ActionEvent arg0) {
         String tournamentName = tournamentNamTextField.getText();
-        String tournamentType = mainMenu.getAccessibleText();
+        String tournamentTypeString = tournamentType.getText();
         System.out.println(tournamentType);
         int teamSize = Integer.parseInt(tournamentTeamSizeTextField.getText());
         String tournamentStartDate = tournamentStartDateTextField.getText();
         String tournamentEndDate = tournamentEndDateTextField.getText();
 
-        Tournament tournament = new Tournament(tournamentName, tournamentType, teamSize, tournamentStartDate, tournamentEndDate);
+        Tournament tournament = new Tournament(tournamentName, tournamentTypeString, teamSize, tournamentStartDate, tournamentEndDate);
         // App.stage.setScene(scene);
-        App.stage.setScene(new TournamentsPage());
+        HelloApplication.stage.setScene(new TournamentsPage());
       }
       
     });

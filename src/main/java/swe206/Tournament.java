@@ -64,6 +64,10 @@ public class Tournament implements Serializable {
     return tournmetType;
   }
 
+  public void seTournamentType(String type) {
+    this.tournmetType = type;
+  }
+
   public String getStatus() {
     return Status;
   }
@@ -199,11 +203,14 @@ public static int[] distributeEliminationMatches(int numTeams) {
     // ongoingTournaments.get(0).addTeam(team1);
     // ongoingTournaments.get(0).addTeam(team2);
     
-    System.out.println(ongoingTournaments.get(1).getTournamentType());
+    // System.out.println(ongoingTournaments.get(1).getTournamentType());
     
-    // for(Tournament tt: ongoingTournaments) {
-    //  System.out.println(tt.toString());
-    // }
+    for(Tournament tt: ongoingTournaments) {
+     tt.seTournamentType("Elimination");
+     System.out.println(tt.getTournamentType());
+    }
+
+   ongoingTournaments.get(1).seTournamentType("Round Robin");
 
     // ongoingTournaments.clear();
     // Save the tournaments

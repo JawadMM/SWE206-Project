@@ -47,7 +47,7 @@ public class AddTeamPage extends Scene {
 
         // Tournament.saveTournaments();
         // App.stage.setScene(scene);
-        App.stage.setScene(new SpecificTournamentPage(tournament));
+        HelloApplication.stage.setScene(new SpecificTournamentPage(tournament));
       }});
       mainBox.getChildren().addAll(team1VBox, team2VBox, addTeam);
 

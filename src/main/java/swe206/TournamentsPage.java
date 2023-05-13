@@ -32,7 +32,7 @@ public class TournamentsPage extends Scene {
     addButton.setOnAction(event -> {
       // Scene scene1 = new AddTournamentPage();
       // stage.setScene(scene1);
-      App.getStage().setScene(new AddTournamentPage());
+      HelloApplication.stage.setScene(new AddTournamentPage());
       
     });
 
@@ -68,10 +68,21 @@ public class TournamentsPage extends Scene {
     
     HBox card = new HBox(tournamentNamLabel, tournamentDateLabel, tournamentTeamsSizeLabel);
     card.setSpacing(20);
-    card.setOnMouseClicked(e -> {
-      // App.stage.setScene(new SpecificTournamentPage(tournament.getTournamentName(), tournament.getDate(), tournament.getTeamsSize(), tournament.getMatches()));
-      App.stage.setScene(new SpecificTournamentPage(tournament));
-    });
+
+    if (tournament.getTournamentType().equals("Elimination")) {
+
+      card.setOnMouseClicked(e -> {
+        // App.stage.setScene(new SpecificTournamentPage(tournament.getTournamentName(), tournament.getDate(), tournament.getTeamsSize(), tournament.getMatches()));
+        HelloApplication.stage.setScene(new SpecificTournamentPage(tournament));
+      });
+    }
+
+    else {
+      card.setOnMouseClicked(e -> {
+        // App.stage.setScene(new SpecificTournamentPage(tournament.getTournamentName(), tournament.getDate(), tournament.getTeamsSize(), tournament.getMatches()));
+        HelloApplication.stage.setScene(new TeamTableApp(tournament));
+      });
+    }
     
     HBox.setMargin(card, new Insets(20));
     card.setPrefHeight(100);

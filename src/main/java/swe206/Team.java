@@ -3,6 +3,9 @@ package swe206;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Team implements Serializable {
 
   private int teamID;
@@ -12,6 +15,14 @@ public class Team implements Serializable {
 
   private static int counter;
 
+  private SimpleStringProperty name;
+  private SimpleIntegerProperty points;
+
+  public Team(String name, int points) {
+      this.name = new SimpleStringProperty(name);
+      this.points = new SimpleIntegerProperty(points);
+  }
+
   public Team(String teamName) {
 
     counter +=1;
@@ -19,6 +30,31 @@ public class Team implements Serializable {
     this.teamName = teamName;
     this.participants = new ArrayList<>();
   }
+
+  public String getName() {
+      return name.get();
+  }
+
+  public void setName(String name) {
+      this.name.set(name);
+  }
+
+  public int getPoints() {
+      return points.get();
+  }
+
+  public void setPoints(int points) {
+      this.points.set(points);
+  }
+
+  public SimpleStringProperty nameProperty() {
+      return name;
+  }
+
+  public SimpleIntegerProperty pointsProperty() {
+      return points; 
+  }
+
 
   public int getTeamID() {
     return teamID;

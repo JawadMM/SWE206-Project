@@ -9,12 +9,18 @@ public class Admin extends User {
 
   private static ArrayList<Admin> admins = new ArrayList<>();
   private static int adminID;
+  private String username;
+    // private String password;
 
   public Admin(String username, String password) {
     super(username, password);
     admins.add(this);
     printAdmins();
   }
+
+  public String getUsername() {
+    return username;
+}
 
   public Tournament createTournament(String tournamentName, String tournamentType, int teamsSize, String startDate, String endDate) {
     
